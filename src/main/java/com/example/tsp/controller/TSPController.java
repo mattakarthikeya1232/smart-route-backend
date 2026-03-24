@@ -66,8 +66,19 @@ public class TSPController {
     }
 
     private double distance(Point a, Point b) {
-        double dx = a.x - b.x;
-        double dy = a.y - b.y;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
+    double R = 6371; // Earth radius in KM
+
+    double lat1 = Math.toRadians(a.x);
+    double lat2 = Math.toRadians(b.x);
+    double dLat = Math.toRadians(b.x - a.x);
+    double dLon = Math.toRadians(b.y - a.y);
+
+    double h = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+               Math.cos(lat1) * Math.cos(lat2) *
+               Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+    double c = 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+
+    return R * c; // distance in KM
+}
 }
