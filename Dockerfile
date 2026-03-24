@@ -2,11 +2,17 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
+# copy only backend files properly
 COPY . .
 
+# build jar
 RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
+# debug (optional but helpful)
+RUN ls target
+
 EXPOSE 8080
 
-CMD ["java", "-jar", "target/backend-0.0.1-SNAPSHOT.jar"]
+# run using shell so wildcard works
+CMD sh -c "java -jar target/*.jar"
