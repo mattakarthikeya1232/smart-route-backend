@@ -1,10 +1,8 @@
 FROM eclipse-temurin:17-jdk
-
 WORKDIR /app
 
 # copy only backend files properly
 COPY . .
-
 # build jar
 RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
